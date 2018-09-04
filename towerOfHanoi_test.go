@@ -8,6 +8,7 @@ func Test(t *testing.T) {
 	for i := range cases {
 		n = cases[i]
 		o, b, d := Disc(n)
+        validate(t, n, o)
 		moveDiscs(o, b, d)
 		validate(t, n, d)
 	}
@@ -37,24 +38,6 @@ func Disc(n uint) (s0, s1, s2 *stack) {
 	return s0, s1, s2
 }
 
-func oneDisc() (s0, s1, s2 *stack) {
-	s0, s1, s2 = posts()
-	s0.top = &disc{1, nil}
-	s0.size = 1
-	return
-}
-func twoDisc() (s0, s1, s2 *stack) {
-	s0, s1, s2 = posts()
-	s0.top = &disc{1, &disc{2, nil}}
-	s0.size = 2
-	return
-}
-func threeDisc() (s0, s1, s2 *stack) {
-	s0, s1, s2 = posts()
-	s0.top = &disc{1, &disc{2, &disc{3, nil}}}
-	s0.size = 3
-	return
-}
 func posts() (s0, s1, s2 *stack) {
 	s0, s1, s2 = new(stack), new(stack), new(stack)
 	return

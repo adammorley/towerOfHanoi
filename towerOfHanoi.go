@@ -36,9 +36,6 @@ func (s *stack) Push(d *disc) {
 func moveDiscs(o, b, d *stack) {
 	if o.size >= 64 {
 		panic("unsupported disc count")
-	}
-	if o.size == 0 && b.size == 0 {
-		return
 	} else if o.size == 1 && b.size == 0 && d.size == 0 {
 		d.Push(o.Pop())
 		return
@@ -46,10 +43,13 @@ func moveDiscs(o, b, d *stack) {
 		compareAndMove(o, b)
 		compareAndMove(o, d)
 		compareAndMove(b, d)
+		if done(o, b) {
+			return
+		}
 		moveDiscs(o, b, d)
 	} else { // odd
 		compareAndMove(o, d)
-		if o.size == 0 && b.size == 0 {
+		if done(o, b) {
 			return
 		}
 		compareAndMove(o, b)
@@ -64,4 +64,11 @@ func compareAndMove(a, b *stack) {
 	} else {
 		a.Push(b.Pop())
 	}
+}
+
+func done(a, b *stack) bool {
+	if a.size == 0 && b.size == 0 {
+		return true
+	}
+	return false
 }
