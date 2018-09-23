@@ -8,7 +8,7 @@ func Test(t *testing.T) {
 	for i := range cases {
 		n = cases[i]
 		o, b, d := Disc(n)
-        validate(t, n, o)
+		validate(t, n, o)
 		moveDiscs(o, b, d)
 		validate(t, n, d)
 	}
